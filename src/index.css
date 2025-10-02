@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Dark blue - professional and modern */
+    --primary: 220 80% 25%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 220 80% 30%;
+    --primary-light: 220 60% 35%;
+
+    /* Electric blue accent */
+    --secondary: 200 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --secondary-hover: 200 100% 45%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
+
+    /* Bright accent for highlights */
+    --accent: 200 100% 50%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 220 80% 25%;
+
+    --radius: 1rem;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(220 80% 15%) 0%, hsl(0 0% 5%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 60% 20%) 0%, hsl(220 80% 10%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 5%) 0%, hsl(220 20% 8%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsla(220 80% 25% / 0.1) 0%, hsla(0 0% 100% / 0.05) 100%);
+    
+    /* Glassmorphism */
+    --glass-bg: hsla(0 0% 10% / 0.6);
+    --glass-border: hsla(0 0% 100% / 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    
+    /* Shadows with glow */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 10px 25px -5px rgb(0 0 0 / 0.5);
+    --shadow-xl: 0 20px 40px -10px rgb(0 0 0 / 0.6);
+    --shadow-glow: 0 0 20px hsl(200 100% 50% / 0.3);
+    
+    /* Transitions */
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 220 80% 30%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 220 80% 35%;
+
+    --secondary: 200 100% 55%;
+    --secondary-foreground: 0 0% 0%;
+    --secondary-hover: 200 100% 50%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 200 100% 55%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 62.8% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 15%;
+    --input: 0 0% 15%;
+    --ring: 220 80% 30%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(220 80% 15%) 0%, hsl(0 0% 5%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(220 60% 20%) 0%, hsl(220 80% 10%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 5%) 0%, hsl(220 20% 8%) 100%);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+  
+  .glass-hover {
+    @apply glass transition-all duration-500;
+  }
+  
+  .glass-hover:hover {
+    background: hsla(0 0% 15% / 0.7);
+    border: 1px solid hsla(200 100% 50% / 0.3);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.6s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s ease-out;
+  }
+}
+
+@layer components {
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(200 100% 50% / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 30px hsl(200 100% 50% / 0.5);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
