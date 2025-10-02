@@ -1,73 +1,110 @@
-# Welcome to your Lovable project
+# LoadWheels - Transport & Logistics Platform
 
-## Project info
+## Project Overview
 
-**URL**: https://lovable.dev/projects/f7f09b91-5e97-40b0-9077-29dd619a68c9
+LoadWheels is a comprehensive transport and logistics platform connecting customers with verified delivery partners. The platform offers truck booking, same-day delivery, and real-time tracking services.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Truck Booking**: Book various vehicle types for cargo transportation
+- **Same-Day Delivery**: Express delivery service with multiple urgency levels
+- **Real-Time Tracking**: Live GPS tracking with driver communication
+- **Partner Network**: Verified delivery partners across multiple cities
+- **Admin Dashboard**: Comprehensive management system for bookings and partners
+- **Multi-User System**: Customer, driver, and admin user types
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/f7f09b91-5e97-40b0-9077-29dd619a68c9) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## Technologies Used
 
 This project is built with:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **Frontend**: React, TypeScript, Vite
+- **UI Components**: shadcn-ui, Tailwind CSS
+- **Backend**: Supabase (Database, Authentication, Storage)
+- **Maps Integration**: Google Maps API
+- **Real-time Features**: Supabase real-time subscriptions
 
-## How can I deploy this project?
+## Getting Started
 
-Simply open [Lovable](https://lovable.dev/projects/f7f09b91-5e97-40b0-9077-29dd619a68c9) and click on Share -> Publish.
+### Prerequisites
 
-## Can I connect a custom domain to my Lovable project?
+- Node.js (v16 or higher)
+- npm or yarn package manager
 
-Yes, you can!
+### Installation
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd load-wheel
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up environment variables:
+Create a `.env.local` file with your Supabase and Google Maps credentials:
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+
+4. Start the development server:
+```bash
+npm run dev
+```
+
+## Database Setup
+
+Run the SQL schema from `database/schema.sql` in your Supabase project to set up the required tables and policies.
+
+## Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+├── pages/              # Page components
+├── contexts/           # React contexts (Auth, etc.)
+├── services/           # External service integrations
+├── lib/                # Utility libraries
+└── assets/             # Static assets
+```
+
+## Key Features
+
+### User Types
+- **Customers**: Book trucks and track deliveries
+- **Drivers**: Receive booking requests and manage deliveries
+- **Admins**: Manage partners, bookings, and platform operations
+
+### Services
+- **Regular Truck Booking**: Various vehicle sizes for different cargo needs
+- **Same-Day Delivery**: Express service with 1-6 hour delivery windows
+- **Real-Time Tracking**: Live location updates and driver communication
+
+### Admin Features
+- Partner application management
+- Booking oversight and status updates
+- Real-time communication with customers and drivers
+
+## Deployment
+
+The application can be deployed to any static hosting service that supports React applications:
+
+- Vercel
+- Netlify
+- AWS S3 + CloudFront
+- Firebase Hosting
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

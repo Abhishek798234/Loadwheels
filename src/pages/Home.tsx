@@ -86,14 +86,6 @@ const Home = () => {
               </Button>
               <Button
                 size="lg"
-                className="bg-orange-600 hover:bg-orange-700 text-white shadow-xl transition-all duration-500 hover:scale-105 hover:shadow-glow text-lg px-8 py-6"
-                onClick={() => navigate("/same-day-delivery")}
-              >
-                Same-Day Delivery
-                <Clock className="ml-2 h-6 w-6" />
-              </Button>
-              <Button
-                size="lg"
                 variant="outline"
                 className="glass-hover text-foreground text-lg px-8 py-6"
                 onClick={() => navigate("/partner")}
