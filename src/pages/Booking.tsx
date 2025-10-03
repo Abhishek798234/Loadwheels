@@ -15,7 +15,7 @@ import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import MapmyIndiaLocationPicker from "@/components/MapmyIndiaLocationPicker";
+import { MapboxLocationPicker } from "@/components/MapboxLocationPicker";
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -119,9 +119,8 @@ const Booking = () => {
                   <MapPin className="h-4 w-4 text-secondary" />
                   Pickup Location *
                 </Label>
-                <MapmyIndiaLocationPicker
-                  onLocationSelect={(location) => handleInputChange("pickupLocation", location)}
-                  initialLocation={bookingData.pickupLocation}
+                <MapboxLocationPicker
+                  onLocationSelect={(location) => handleInputChange("pickupLocation", location.address || `${location.lat}, ${location.lng}`)}
                   placeholder="Enter pickup address or select on map"
                 />
               </div>
@@ -131,9 +130,8 @@ const Booking = () => {
                   <MapPin className="h-4 w-4 text-secondary" />
                   Delivery Location *
                 </Label>
-                <MapmyIndiaLocationPicker
-                  onLocationSelect={(location) => handleInputChange("deliveryLocation", location)}
-                  initialLocation={bookingData.deliveryLocation}
+                <MapboxLocationPicker
+                  onLocationSelect={(location) => handleInputChange("deliveryLocation", location.address || `${location.lat}, ${location.lng}`)}
                   placeholder="Enter delivery address or select on map"
                 />
               </div>

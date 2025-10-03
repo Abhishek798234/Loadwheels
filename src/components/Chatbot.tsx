@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MessageCircle, X, Send, MapPin, Calculator } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { calculateDistance as getDistance } from "@/services/mapmyindia";
+import { calculateDistance as getDistance, geocodeAddress } from "@/services/mapbox";
 
 interface Message {
   id: number;
@@ -162,8 +162,23 @@ const Chatbot = () => {
     ]);
 
     // Calculate distance and fare
-    const result = await getDistance(fareData.pickup, dropoff);
-    const distance = result.distance;
+    const pickupCoords = await geocodeAddress(fareData.pickup);
+    const dropoffCoords = await geocodeAddress(dropoff);
+    
+    if (!pickupCoords || !dropoffCoords) {
+      setMessages(prev => [...prev.slice(0, -1),
+        { 
+          id: Date.now(), 
+          text: "❌ Sorry, I couldn't find one or both locations. Please try again with more specific addresses.",
+          isBot: true
+        }
+      ]);
+      setCurrentStep('dropoff_location');
+      return;
+    }
+    
+    const distance = await getDistance(pickupCoords, dropoffCoords);
+    const duration = `${Math.round(distance * 2)} mins`; // Rough estimate
     
     let rate, totalFare, serviceType;
     
@@ -186,8 +201,8 @@ const Chatbot = () => {
     
     setTimeout(() => {
       const estimateText = currentStep === 'same_day_dropoff' 
-        ? `📍 **Same-Day Delivery Estimate**\n\n📦 Service: ${serviceType}\n📍 From: ${fareData.pickup}\n📍 To: ${dropoff}\n📏 Distance: ~${distance} km\n⏱️ Duration: ~${result.duration}\n💰 **Standard Fare: $${totalFare}**\n⚡ Express (+50%): $${Math.round(totalFare * 1.5)}\n🔥 Urgent (+100%): $${Math.round(totalFare * 2)}\n\n*Same-day delivery within 1-6 hours*`
-        : `📍 **Fare Estimate**\n\n🚛 Vehicle: ${serviceType}\n📍 From: ${fareData.pickup}\n📍 To: ${dropoff}\n📏 Distance: ~${distance} km\n⏱️ Duration: ~${result.duration}\n💰 **Estimated Fare: $${totalFare}**\n\n*Includes service charges. ${result.success ? 'Based on real-time Google Maps data.' : 'Estimated distance used.'}*`;
+        ? `📍 **Same-Day Delivery Estimate**\n\n📦 Service: ${serviceType}\n📍 From: ${fareData.pickup}\n📍 To: ${dropoff}\n📏 Distance: ~${distance} km\n⏱️ Duration: ~${duration}\n💰 **Standard Fare: $${totalFare}**\n⚡ Express (+50%): $${Math.round(totalFare * 1.5)}\n🔥 Urgent (+100%): $${Math.round(totalFare * 2)}\n\n*Same-day delivery within 1-6 hours*`
+        : `📍 **Fare Estimate**\n\n🚛 Vehicle: ${serviceType}\n📍 From: ${fareData.pickup}\n📍 To: ${dropoff}\n📏 Distance: ~${distance} km\n⏱️ Duration: ~${duration}\n💰 **Estimated Fare: $${totalFare}**\n\n*Includes service charges. Based on Mapbox routing data.*`;
       
       const buttons = currentStep === 'same_day_dropoff'
         ? [{ text: "📦 Book Same-Day", action: "book_same_day" }, { text: "🔄 New Estimate", action: "new_estimate" }]

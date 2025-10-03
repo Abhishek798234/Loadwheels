@@ -11,8 +11,8 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
-import MapmyIndiaLocationPicker from "@/components/MapmyIndiaLocationPicker";
-import { calculateDistance } from "@/services/mapmyindia";
+import { MapboxLocationPicker } from "@/components/MapboxLocationPicker";
+import { calculateDistance, geocodeAddress } from "@/services/mapbox";
 
 const SameDayDelivery = () => {
   const navigate = useNavigate();
@@ -55,7 +55,12 @@ const SameDayDelivery = () => {
 
   const calculateFare = async () => {
     try {
-      const dist = await calculateDistance(formData.pickup_location, formData.delivery_location);
+      const pickupCoords = await geocodeAddress(formData.pickup_location);
+      const deliveryCoords = await geocodeAddress(formData.delivery_location);
+      
+      if (!pickupCoords || !deliveryCoords) return;
+      
+      const dist = await calculateDistance(pickupCoords, deliveryCoords);
       setDistance(dist);
       
       const baseFare = 15; // Base same-day delivery fee
@@ -180,17 +185,15 @@ const SameDayDelivery = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="pickup">Pickup Location</Label>
-                      <MapmyIndiaLocationPicker
-                        onLocationSelect={(location) => handleInputChange("pickup_location", location)}
-                        initialLocation={formData.pickup_location}
+                      <MapboxLocationPicker
+                        onLocationSelect={(location) => handleInputChange("pickup_location", location.address || `${location.lat}, ${location.lng}`)}
                         placeholder="Enter pickup address or select on map"
                       />
                     </div>
                     <div>
                       <Label htmlFor="delivery">Delivery Location</Label>
-                      <MapmyIndiaLocationPicker
-                        onLocationSelect={(location) => handleInputChange("delivery_location", location)}
-                        initialLocation={formData.delivery_location}
+                      <MapboxLocationPicker
+                        onLocationSelect={(location) => handleInputChange("delivery_location", location.address || `${location.lat}, ${location.lng}`)}
                         placeholder="Enter delivery address or select on map"
                       />
                     </div>

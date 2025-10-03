@@ -20,7 +20,7 @@ This project is built with:
 - **Frontend**: React, TypeScript, Vite
 - **UI Components**: shadcn-ui, Tailwind CSS
 - **Backend**: Supabase (Database, Authentication, Storage)
-- **Maps Integration**: MapmyIndia API
+- **Maps Integration**: Mapbox API
 - **Real-time Features**: Supabase real-time subscriptions
 
 ## Getting Started
@@ -44,11 +44,11 @@ npm install
 ```
 
 3. Set up environment variables:
-Create a `.env.local` file with your Supabase and MapmyIndia credentials:
+Create a `.env.local` file with your Supabase and Mapbox credentials:
 ```env
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_MAPMYINDIA_API_KEY=your_mapmyindia_api_key
+VITE_MAPBOX_ACCESS_TOKEN=your_mapbox_access_token
 ```
 
 4. Start the development server:
