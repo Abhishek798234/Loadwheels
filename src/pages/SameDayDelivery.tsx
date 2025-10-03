@@ -11,7 +11,8 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { useAuth } from "@/contexts/AuthContext";
 import Navbar from "@/components/Navbar";
-import { calculateDistance } from "@/services/googleMaps";
+import MapmyIndiaLocationPicker from "@/components/MapmyIndiaLocationPicker";
+import { calculateDistance } from "@/services/mapmyindia";
 
 const SameDayDelivery = () => {
   const navigate = useNavigate();
@@ -179,20 +180,18 @@ const SameDayDelivery = () => {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="pickup">Pickup Location</Label>
-                      <Input
-                        id="pickup"
-                        placeholder="Enter pickup address"
-                        value={formData.pickup_location}
-                        onChange={(e) => handleInputChange("pickup_location", e.target.value)}
+                      <MapmyIndiaLocationPicker
+                        onLocationSelect={(location) => handleInputChange("pickup_location", location)}
+                        initialLocation={formData.pickup_location}
+                        placeholder="Enter pickup address or select on map"
                       />
                     </div>
                     <div>
                       <Label htmlFor="delivery">Delivery Location</Label>
-                      <Input
-                        id="delivery"
-                        placeholder="Enter delivery address"
-                        value={formData.delivery_location}
-                        onChange={(e) => handleInputChange("delivery_location", e.target.value)}
+                      <MapmyIndiaLocationPicker
+                        onLocationSelect={(location) => handleInputChange("delivery_location", location)}
+                        initialLocation={formData.delivery_location}
+                        placeholder="Enter delivery address or select on map"
                       />
                     </div>
                   </div>

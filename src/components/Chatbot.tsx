@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { MessageCircle, X, Send, MapPin, Calculator } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
-import { calculateDistance as getDistance } from "@/services/googleMaps";
+import { calculateDistance as getDistance } from "@/services/mapmyindia";
 
 interface Message {
   id: number;
